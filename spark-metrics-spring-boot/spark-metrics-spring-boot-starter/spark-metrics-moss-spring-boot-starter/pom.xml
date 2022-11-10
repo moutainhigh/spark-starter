@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>info.spark</groupId>
+        <artifactId>spark-metrics-spring-boot-starter</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>spark-metrics-moss-spring-boot-starter</artifactId>
+    <name>Spark Metrics Moss Spring Boot Starter</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>info.spark</groupId>
+            <artifactId>spark-metrics-moss-spring-boot-core</artifactId>
+        </dependency>
+    </dependencies>
+</project>

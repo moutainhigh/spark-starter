@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment>Temporary Properties</comment>
+    <!-- 图片边框, 合法值yes, no, 默认值yes -->
+    <entry key="kaptcha.border">no</entry>
+    <!-- 边框颜色, 合法值rgb(and optional alpha)或者 white,black,blue, 默认值black -->
+    <entry key="kaptcha.border.color">blue</entry>
+    <!-- 边框厚度, 合法值>0,默认值为1 -->
+    <entry key="kaptcha.border.thickness">2</entry>
+    <!-- 图片宽度, 默认值200 -->
+    <entry key="kaptcha.image.width">200</entry>
+    <!-- 图片高度, 默认值50 -->
+    <entry key="kaptcha.image.height">50</entry>
+    <!-- 图片实现类, 默认值priv.kerlomz.kaptcha.impl.DefaultKaptcha -->
+    <entry key="kaptcha.producer.impl">priv.kerlomz.kaptcha.impl.DefaultKaptcha</entry>
+    <!-- 文本实现类,默认值priv.kerlomz.kaptcha.impl.DefaultTextCreator -->
+    <entry key="kaptcha.textproducer.impl">priv.kerlomz.kaptcha.text.impl.DefaultTextCreator</entry>
+    <!-- 文本集合, 验证码值从此集合中获取,默认值abcde2345678gfynmnpwx -->
+    <entry key="kaptcha.textproducer.char.string">abcde2345678gfynmnpwx</entry>
+    <!-- 验证码长度,默认值为5 -->
+    <entry key="kaptcha.textproducer.char.length">5</entry>
+    <!-- 字体,默认值Arial, Courier(如果使用中文验证码, 则必须使用中文的字体, 否则出现乱码) -->
+    <entry key="kaptcha.textproducer.font.names">Arial</entry>
+    <!-- 字体大小, 默认值为40px -->
+    <entry key="kaptcha.textproducer.font.size">40</entry>
+    <!-- 字体颜色, 合法值:  r,g,b 或者 white,black,blue, 默认值black -->
+    <entry key="kaptcha.textproducer.font.color">black</entry>
+    <!-- 文字间隔, 默认值为2 -->
+    <entry key="kaptcha.textproducer.char.space">2</entry>
+    <!-- 干扰实现类, 默认值priv.kerlomz.kaptcha.impl.DefaultNoise -->
+    <entry key="kaptcha.noise.impl">priv.kerlomz.kaptcha.impl.DefaultNoise</entry>
+    <!-- 干扰 颜色, 合法值:  r,g,b 或者 white,black,blue, 默认值black -->
+    <entry key="kaptcha.noise.color">black</entry>
+    <!-- 图片样式:
+         水纹 priv.kerlomz.kaptcha.impl.WaterRipple
+         鱼眼 priv.kerlomz.kaptcha.impl.FishEyeGimpy
+         阴影 priv.kerlomz.kaptcha.impl.ShadowGimpy, 默认值水纹
+    -->
+    <entry key="kaptcha.obscurificator.impl">priv.kerlomz.kaptcha.impl.WaterRipple</entry>
+    <!-- 背景实现类, 默认值priv.kerlomz.kaptcha.impl.DefaultBackground -->
+    <entry key="kaptcha.background.impl">priv.kerlomz.kaptcha.impl.DefaultBackground</entry>
+    <!-- 背景颜色渐变, 开始颜色, 默认值lightGray/192,193,193 -->
+    <entry key="kaptcha.background.clear.from">255,255,255</entry>
+    <!-- 背景颜色渐变,  结束颜色, 默认值white -->
+    <entry key="kaptcha.background.clear.to">white</entry>
+    <!-- 文字渲染器, 默认值priv.kerlomz.kaptcha.text.impl.DefaultWordRenderer -->
+    <entry key="kaptcha.word.impl">priv.kerlomz.kaptcha.text.impl.DefaultWordRenderer</entry>
+</properties>

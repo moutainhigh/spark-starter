@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>info.spark</groupId>
+        <artifactId>spark-launcher-spring-boot</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>spark-launcher-spring-boot-autoconfigure</artifactId>
+    <name>Spark Launcher Spring Boot Autoconfigure</name>
+
+    <dependencies>
+        <!--region 强依赖-->
+        <dependency>
+            <groupId>info.spark</groupId>
+            <artifactId>spark-element-autoconfigure</artifactId>
+        </dependency>
+        <!--endregion-->
+
+        <!--region 禁止传递依赖, 主要用于自动装配条件需要使用到的引用, 只在此模块下起作用, 其他模块需要自己引入以下依赖 -->
+        <dependency>
+            <groupId>info.spark</groupId>
+            <artifactId>spark-launcher-spring-boot-core</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>info.spark</groupId>
+            <artifactId>spark-logsystem-simple</artifactId>
+        </dependency>
+
+        <!-- 添加其他依赖 -->
+        <!--endregion-->
+    </dependencies>
+</project>

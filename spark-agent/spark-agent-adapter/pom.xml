@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>info.spark</groupId>
+        <artifactId>spark-agent</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>spark-agent-adapter</artifactId>
+    <packaging>pom</packaging>
+    <name>Spark Agent Adapter</name>
+    <description>Spark Agent Adapter</description>
+
+    <modules>
+        <module>spark-agent-feign-adapter</module>
+        <module>spark-agent-rest-adapter</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>info.spark</groupId>
+                <artifactId>spark-boot-dependencies-v4</artifactId>
+                <version>${spark-boot-dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>info.spark</groupId>
+            <artifactId>spark-agent-basic</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>spark-agent-spring-boot</artifactId>
+        <groupId>info.spark</groupId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>spark-agent-spring-boot-autoconfigure</artifactId>
+    <name>Spark Agent Spring Boot Autoconfigure</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>info.spark</groupId>
+            <artifactId>spark-element-autoconfigure</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>info.spark</groupId>
+            <artifactId>spark-logsystem-simple</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>info.spark</groupId>
+            <artifactId>spark-agent-endpoint</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>io.undertow</groupId>
+            <artifactId>undertow-core</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.undertow</groupId>
+            <artifactId>undertow-websockets-jsr</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+    </dependencies>
+</project>

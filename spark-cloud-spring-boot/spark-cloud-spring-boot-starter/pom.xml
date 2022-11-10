@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>info.spark</groupId>
+        <artifactId>spark-cloud-spring-boot</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>spark-cloud-spring-boot-starter</artifactId>
+    <name>Spark Cloud Spring Boot Starter</name>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>spark-cloud-nacos-spring-boot-starter</module>
+        <module>spark-cloud-sentinel-spring-boot-starter</module>
+        <module>spark-cloud-seata-spring-boot-starter</module>
+    </modules>
+
+    <dependencies>
+        <!-- 自动装配依赖 -->
+        <dependency>
+            <groupId>info.spark</groupId>
+            <artifactId>spark-cloud-spring-boot-autoconfigure</artifactId>
+        </dependency>
+
+        <!-- 添加需要的依赖 -->
+
+    </dependencies>
+</project>

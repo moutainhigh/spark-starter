@@ -1,0 +1,21 @@
+<properties>
+
+    <property name="searchDatas">
+        <![CDATA[{
+            "query": {
+                "bool": {
+                    "filter": [
+                        {  ## Multi-terms search, find multiple application name corresponding to the document records
+                            "terms": {
+                                "name.keyword": [#[name]]
+                            }
+                        }
+                    ]
+                }
+            },
+            ## Up to 1000 records are returned
+            "size":1000
+        }]]>
+    </property>
+
+</properties>

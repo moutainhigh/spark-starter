@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>info.spark</groupId>
+        <artifactId>spark-logsystem-spring-boot-core</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>spark-logsystem-simple</artifactId>
+    <name>Spark LogSystem Simple</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+
+        <!-- https://www.jianshu.com/p/127ffc14d99c -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <type>test-jar</type>
+            <scope>test</scope>
+            <version>1.7.30</version>
+        </dependency>
+    </dependencies>
+</project>

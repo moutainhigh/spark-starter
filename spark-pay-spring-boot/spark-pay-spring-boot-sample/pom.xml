@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>info.spark</groupId>
+        <artifactId>spark-company-parent</artifactId>
+        <version>2022.1.1-SNAPSHOT</version>
+        <relativePath/>
+    </parent>
+
+    <artifactId>spark-pay-spring-boot-sample</artifactId>
+    <version>${revision}</version>
+    <name>Spark Pay Spring Boot Sample</name>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>spark-pay-spring-boot-sample-callback</module>
+    </modules>
+
+    <properties>
+        <revision>1.0.0-SNAPSHOT</revision>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>info.spark</groupId>
+                <artifactId>spark-company-dependencies</artifactId>
+                <version>${spark-company-dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>info.spark</groupId>
+                <artifactId>spark-element-dependencies</artifactId>
+                <version>${spark-element-dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>info.spark</groupId>
+                <artifactId>spark-boot-dependencies</artifactId>
+                <version>${spark-boot-dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+</project>

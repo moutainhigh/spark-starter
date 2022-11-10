@@ -1,0 +1,10 @@
+spark:
+  mqtt:
+    clients:
+      - url: tcp://mqtt.server:1883
+        clientId: client1
+        username: admin
+        password: public
+
+  topic: brokers/+/clients/#
+

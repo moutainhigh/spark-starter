@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>info.spark</groupId>
+        <artifactId>spark-starter-parent</artifactId>
+        <version>2022.1.1-SNAPSHOT</version>
+        <relativePath/>
+    </parent>
+
+    <artifactId>spark-logsystem-spring-boot</artifactId>
+    <version>${revision}</version>
+    <packaging>pom</packaging>
+    <name>Spark Log System</name>
+    <description>日志框架组件</description>
+    <url>https://github.com/dong4j/spark-logsystem-spring-boot.git</url>
+
+    <organization>
+        <url>https://www.dong4j.info</url>
+    </organization>
+
+    <developers>
+        <developer>
+            <id>dong4j</id>
+            <name>dong4j</name>
+            <email>dong4j@gmail.com</email>
+            <organizationUrl>https://www.dong4j.info</organizationUrl>
+            <roles>
+                <role>designer</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <scm>
+        <url>https://github.com/dong4j/spark-logsystem-spring-boot</url>
+        <connection>scm:git:https://github.com/dong4j/spark-logsystem-spring-boot.git</connection>
+        <developerConnection>scm:git:https://github.com/dong4j/spark-logsystem-spring-boot.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <modules>
+        <module>spark-logsystem-spring-boot-core</module>
+        <module>spark-logsystem-spring-boot-autoconfigure</module>
+        <module>spark-logsystem-spring-boot-starter</module>
+    </modules>
+
+    <properties>
+        <revision>2022.1.1-SNAPSHOT</revision>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>info.spark</groupId>
+                <artifactId>spark-company-dependencies</artifactId>
+                <version>${spark-company-dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>info.spark</groupId>
+                <artifactId>spark-element-dependencies</artifactId>
+                <version>${spark-element-dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>info.spark</groupId>
+                <artifactId>spark-boot-dependencies</artifactId>
+                <version>${spark-boot-dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>info.spark</groupId>
+                <artifactId>spark-logsystem-spring-boot-autoconfigure</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- 使用 log4j2 日志框架 (删除所有依赖，在 spark-logsystem-spring-boot 模块中升级 log4j 版本以修复漏洞) -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-log4j2</artifactId>
+                <version>${spring-boot-dependencies.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>*</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>info.spark</groupId>
+            <artifactId>spark-element-test</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

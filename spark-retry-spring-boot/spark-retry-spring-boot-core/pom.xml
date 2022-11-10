@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>info.spark</groupId>
+        <artifactId>spark-retry-spring-boot</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>spark-retry-spring-boot-core</artifactId>
+    <name>Spark Retry Spring Boot Core</name>
+
+    <dependencies>
+        <!--region 强依赖-->
+        <dependency>
+            <groupId>info.spark</groupId>
+            <artifactId>spark-element-core</artifactId>
+        </dependency>
+
+        <!-- 添加需要的强依赖 -->
+        <!--endregion-->
+
+        <!--region 本模块内使用, 禁止依赖传递, 用于 @Slf4j 注解 -->
+        <dependency>
+            <groupId>info.spark</groupId>
+            <artifactId>spark-logsystem-simple</artifactId>
+        </dependency>
+        <!--endregion-->
+
+        <!-- 添加需要的弱依赖 -->
+        <dependency>
+            <groupId>com.github.rholder</groupId>
+            <artifactId>guava-retrying</artifactId>
+        </dependency>
+
+    </dependencies>
+</project>

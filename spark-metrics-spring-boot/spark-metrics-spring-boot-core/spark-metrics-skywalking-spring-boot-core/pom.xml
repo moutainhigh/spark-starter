@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>info.spark</groupId>
+        <artifactId>spark-metrics-spring-boot-core</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>spark-metrics-skywalking-spring-boot-core</artifactId>
+    <name>Spark Metrics SkyWalking Spring Boot Core</name>
+
+    <dependencies>
+        <!-- skywalking info.spark.starter.log4j2 日志输出 traceId -->
+        <dependency>
+            <groupId>org.apache.skywalking</groupId>
+            <artifactId>apm-toolkit-log4j-2.x</artifactId>
+        </dependency>
+        <!-- 自定义埋点, 直接使用 TraceContext.traceId() 获取 traceId -->
+        <dependency>
+            <groupId>org.apache.skywalking</groupId>
+            <artifactId>apm-toolkit-trace</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.skywalking</groupId>
+            <artifactId>apm-toolkit-opentracing</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

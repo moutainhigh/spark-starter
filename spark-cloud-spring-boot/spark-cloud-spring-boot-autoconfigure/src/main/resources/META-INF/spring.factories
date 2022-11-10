@@ -1,0 +1,9 @@
+org.springframework.cloud.bootstrap.BootstrapConfiguration=\
+  info.spark.starter.cloud.autoconfigure.nacos.config.SparkNacosBootstrapConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  info.spark.starter.cloud.autoconfigure.nacos.SparkNacosProperties,\
+  info.spark.starter.cloud.autoconfigure.nacos.SparkNacosAutoConfiguration, \
+  info.spark.starter.cloud.autoconfigure.nacos.discovery.SparkNacosDiscoveryClientAutoConfiguration, \
+  info.spark.starter.cloud.autoconfigure.nacos.registry.CustomNacosServiceRegistryAutoConfiguration
+org.springframework.context.ApplicationListener=\
+  info.spark.starter.cloud.autoconfigure.nacos.listener.SparkCloudAppStartedListener

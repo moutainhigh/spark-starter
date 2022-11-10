@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="OFF" monitorInterval="10" packages="info.spark.starter.logsystem.plugin" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <!-- 在初始化日志系统之前使用此配置文件 -->
+    <Properties>
+        <Property name="PID">????</Property>
+        <Property name="LOG_EXCEPTION_CONVERSION_WORD">%xwEx</Property>
+        <Property name="LOG_LEVEL_PATTERN">%5p</Property>
+        <property name="LOG_CHARSET">UTF-8</property>
+        <Property name="MARKER_PATTERN">%m%n</Property>
+        <!--@formatter:off-->
+        <property name="CONSOLE_LOG_PATTERN">x.%clr{%d{yyyy.MM.dd HH:mm:ss.SSS}}{faint} %clr{[${LOG_LEVEL_PATTERN}]} %clr{${sys:PID}}{magenta} %clr{-}{faint} %clr{[%15.15t]}{faint} %clr{%-40.40c{1.}}{cyan} %clr{:}{faint} ${MARKER_PATTERN}${sys:LOG_EXCEPTION_CONVERSION_WORD}</property>
+        <!--@formatter:on-->
+    </Properties>
+
+    <xi:include href="appender.xml"/>
+
+    <Loggers>
+        <!-- other -->
+        <Logger name="info.spark" level="DEBUG" additivity="false" includeLocation="${sys:SHOW_LOG_LOCATION}">
+            <AppenderRef ref="CONSOLE"/>
+        </Logger>
+
+        <Root level="INFO">
+            <AppenderRef ref="CONSOLE"/>
+        </Root>
+    </Loggers>
+</Configuration>

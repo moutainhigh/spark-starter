@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>info.spark</groupId>
+        <artifactId>spark-doc-spring-boot-sample</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>spark-doc-spring-boot-sample-dubbo</artifactId>
+    <name>Spark Doc Spring Boot Sample Dubbo</name>
+
+    <dependencies>
+        <!--<dependency>-->
+        <!--    <groupId>info.spark</groupId>-->
+        <!--    <artifactId>spark-doc-dubbo-spring-boot-starter</artifactId>-->
+        <!--</dependency>-->
+
+        <!-- dubbo 依赖由主项目添加, 这里添加主要是为了测试使用 -->
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-undertow</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <id>oss</id>
+            <name>nexus-snapshots</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </repository>
+    </repositories>
+</project>

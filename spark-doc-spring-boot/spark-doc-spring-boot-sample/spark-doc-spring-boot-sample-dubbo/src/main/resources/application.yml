@@ -1,0 +1,8 @@
+spark:
+  doc:
+    dubbo:
+      version: 1.0.0
+      group-id: info.spark
+      artifact-id: spark-doc-spring-boot-sample-dubbo
+
+

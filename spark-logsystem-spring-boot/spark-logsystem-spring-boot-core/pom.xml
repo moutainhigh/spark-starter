@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>info.spark</groupId>
+        <artifactId>spark-logsystem-spring-boot</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>spark-logsystem-spring-boot-core</artifactId>
+    <packaging>pom</packaging>
+    <name>Spark LogSystem Spring Boot Core</name>
+
+    <modules>
+        <module>spark-logsystem-simple</module>
+        <module>spark-logsystem-log4j2</module>
+        <module>spark-logsystem-common</module>
+        <module>spark-logsystem-record</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>info.spark</groupId>
+                <artifactId>spark-logsystem-common</artifactId>
+                <version>${revision}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

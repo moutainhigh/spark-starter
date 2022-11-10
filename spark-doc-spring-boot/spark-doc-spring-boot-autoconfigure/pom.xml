@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>spark-doc-spring-boot</artifactId>
+        <groupId>info.spark</groupId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>spark-doc-spring-boot-autoconfigure</artifactId>
+    <name>Spark Doc Spring Boot Autoconfigure</name>
+
+    <dependencies>
+        <!--region 强依赖-->
+        <dependency>
+            <groupId>info.spark</groupId>
+            <artifactId>spark-element-autoconfigure</artifactId>
+        </dependency>
+        <!--endregion-->
+
+        <!--region 禁止传递依赖, 主要用于自动装配条件需要使用到的引用, 只在此模块下起作用, 其他模块需要自己引入以下依赖 -->
+
+        <!--region dubbo doc 依赖-->
+        <dependency>
+            <groupId>info.spark</groupId>
+            <artifactId>spark-doc-dubbo</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>info.spark</groupId>
+            <artifactId>spark-endpoint-servlet</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!--endregion-->
+
+        <dependency>
+            <groupId>info.spark</groupId>
+            <artifactId>spark-doc-agent</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>info.spark</groupId>
+            <artifactId>spark-agent-common</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>info.spark</groupId>
+            <artifactId>spark-doc-knife4j</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>info.spark</groupId>
+            <artifactId>spark-doc-restdoc</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>info.spark</groupId>
+            <artifactId>spark-doc-swagger</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>info.spark</groupId>
+            <artifactId>spark-logsystem-simple</artifactId>
+        </dependency>
+
+        <!-- 添加其他依赖 -->
+
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-core</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+
+        <!--endregion-->
+
+    </dependencies>
+</project>

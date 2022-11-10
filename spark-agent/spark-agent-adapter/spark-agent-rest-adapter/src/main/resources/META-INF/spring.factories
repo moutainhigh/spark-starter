@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  info.spark.agent.adapter.config.AgentAdapterRestConfiguration,\
+  info.spark.agent.adapter.config.AgentRestProperties,\
+  info.spark.agent.adapter.config.IdWorkerAutoConfiguration

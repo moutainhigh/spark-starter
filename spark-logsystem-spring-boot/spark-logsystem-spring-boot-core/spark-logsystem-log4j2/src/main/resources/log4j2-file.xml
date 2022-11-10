@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 1. 生产环境默认配置, 项目日志等级默认 INFO, root 默认 WARN -->
+<!-- 2. 所有日志默认全部输出到 all.log (只包含 INFO 及以上日志) -->
+<!-- 3. error 日志默认输出到 error.log 文件 -->
+<!-- 4. 如果将日志等级设置为 debug, 会将 debug 及以上日志输出到 debug.log 文件, 方便排查问题, 排查完成后, 最好删除 debug.log 文件 -->
+<!-- 5. 如果将日志等级设置为 trace, 会将 agent service, rest api, gateway 服务中特定阶段的 trace 日志分别输出 agent.service.log, rest.log 和 gateway.log 文件, 但不会输出到 all.log 和 error.log 中 -->
+<!-- status="OFF", 可以去掉, 它的含义为是否记录log4j2本身的event信息, 默认是OFF -->
+<!--日志级别以及优先级排序: OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALL -->
+<Configuration status="OFF" monitorInterval="30" shutdownHook="disable" packages="info.spark.starter.logsystem.plugin">
+    <Properties>
+        <!-- (各应用需要修改) 日志文件本地存放目录路径 建议各个环境跟生产环境统一起来,方便维护 -->
+        <property name="LOG_BASE_FOLDER">${sys:LOG_PATH}/${sys:APP_NAME}</property>
+        <!-- 日志文件最小切割单位 值不做强制要求, 建议100MB -->
+        <property name="LOG_FILE_MAX_SIZE">${sys:LOG_FILE_MAX_SIZE}</property>
+        <property name="LOG_FILE_MAX_HISTORY">${sys:LOG_FILE_MAX_HISTORY}</property>
+        <property name="LOG_FILE_TOTAL_SIZE_CAP">${sys:LOG_FILE_TOTAL_SIZE_CAP}</property>
+        <!-- <property name="DELETE_FILE_AGE">${sys:DELETE_FILE_AGE_VALUE}</property> -->
+        <!-- 必须并强制遵守 日志文件的编码 -->
+        <property name="LOG_CHARSET">UTF-8</property>
+
+        <Property name="LOG_EXCEPTION_CONVERSION_WORD">%xwEx</Property>
+        <Property name="LOG_LEVEL_PATTERN">%5p</Property>
+        <Property name="MARKER_PATTERN">%m%n</Property>
+        <Property name="ROLLING_FILE_NAME_PATTERN">%d{yyyyMMdd.HH}.%i.log.gz</Property>
+        <Property name="LOG_DATEFORMAT_PATTERN">yyyy-MM-dd HH:mm:ss.SSS</Property>
+        <!--@formatter:off-->
+        <Property name="FILE_LOG_PATTERN">%d{${sys:LOG_DATEFORMAT_PATTERN}} ${sys:LOG_LEVEL_PATTERN} - [%15.15t] %c{1.} :: ${MARKER_PATTERN}${sys:LOG_EXCEPTION_CONVERSION_WORD}</Property>
+        <!--@formatter:on-->
+    </Properties>
+
+    <CustomLevels>
+        <!-- 注意: intLevel 值越小, 级别越高 see: org.apache.logging.log4j.core.filter.LevelRangeFilter -->
+        <CustomLevel name="CUSTOMER" intLevel="350"/>
+    </CustomLevels>
+
+    <Appenders>
+        <!-- 将日志输出到指定位置的文件中 -->
+        <RollingRandomAccessFile name="ALL_FILE"
+                                 fileName="${LOG_BASE_FOLDER}/${sys:LOG_FILE}"
+                                 filePattern="${LOG_BASE_FOLDER}/%d{yyyy-MM-dd}/${sys:LOG_FILE}-${sys:ROLLING_FILE_NAME_PATTERN}"
+                                 immediateFlush="false">
+            <!-- 日志输出格式 -->
+            <PatternLayout charset="${LOG_CHARSET}">
+                <MarkerPatternSelector defaultPattern="${sys:FILE_LOG_PATTERN}">
+                    <PatternMatch key="banner" pattern="${MARKER_PATTERN}"/>
+                    <PatternMatch key="properties" pattern="${MARKER_PATTERN}"/>
+                    <PatternMatch key="processor" pattern="${MARKER_PATTERN}"/>
+                    <PatternMatch key="tracer" pattern="${sys:TRACER_MARKER_PATTERN}"/>
+                </MarkerPatternSelector>
+            </PatternLayout>
+            <!-- interval单位为filePattern最后一个单位, 此处单位为小时, modulate若为true,
+                则日志时间将以0点为边界进行偏移计算, 由于加了.gz策略, 所以此处意思为每隔1小时, 便会新生成一个
+                log4j2的压缩文件, 当每个文件超过 LOG_FILE_MAX_SIZE 时, 也会新生成一个log4j2的压缩文件 -->
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+                <SizeBaseDTriggeringPolicy size="${LOG_FILE_MAX_SIZE}"/>
+            </Policies>
+            <Filters>
+                <!-- 写入 INFO 及以上的日志 -->
+                <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+
+            <!-- 最多备份30天以内||日志文件大小达到100GB的日志||文件数量超过十个
+            此处为策略限制, Delete中可以按自己需要用正则表达式编写 -->
+            <DefaultRolloverStrategy max="${LOG_FILE_TOTAL_SIZE_CAP}">
+                <Delete basePath="${LOG_BASE_FOLDER}" maxDepth="2">
+                    <IfFileName glob="*/${sys:LOG_FILE}-*.log.gz"/>
+                    <IfLastModified age="${LOG_FILE_MAX_HISTORY}d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingRandomAccessFile>
+
+        <!-- 新增 tace.log, 用于记录 trace 日志 -->
+        <RollingRandomAccessFile name="TRACE_FILE"
+                                 fileName="${LOG_BASE_FOLDER}/trace.log"
+                                 filePattern="${LOG_BASE_FOLDER}/%d{yyyy-MM-dd}/trace-${sys:ROLLING_FILE_NAME_PATTERN}"
+                                 immediateFlush="false">
+            <PatternLayout charset="${LOG_CHARSET}">
+                <MarkerPatternSelector defaultPattern="${sys:FILE_LOG_PATTERN}">
+                    <PatternMatch key="banner" pattern="${MARKER_PATTERN}"/>
+                    <PatternMatch key="properties" pattern="${MARKER_PATTERN}"/>
+                    <PatternMatch key="processor" pattern="${MARKER_PATTERN}"/>
+                    <PatternMatch key="tracer" pattern="${sys:TRACER_MARKER_PATTERN}"/>
+                </MarkerPatternSelector>
+            </PatternLayout>
+            <Filters>
+                <!-- 只保留 TRACE 级别日志, DEBUG 及以上日志全拒绝 -->
+                <ThresholdFilter level="DEBUG" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="TRACE" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+                <SizeBaseDTriggeringPolicy size="${LOG_FILE_MAX_SIZE}"/>
+            </Policies>
+        </RollingRandomAccessFile>
+
+        <!-- debug 及以上所有日志单独输出, 线上开启 debug 日志排查完问题后, 修改日志等级为 INFO/WARN/ERROR, 最后删除 debug.log 文件 -->
+        <RollingRandomAccessFile name="DEBUG_FILE"
+                                 fileName="${LOG_BASE_FOLDER}/debug.log"
+                                 filePattern="${LOG_BASE_FOLDER}/%d{yyyy-MM-dd}/debug-${sys:ROLLING_FILE_NAME_PATTERN}"
+                                 immediateFlush="false">
+            <PatternLayout charset="${LOG_CHARSET}">
+                <MarkerPatternSelector defaultPattern="${sys:FILE_LOG_PATTERN}">
+                    <PatternMatch key="banner" pattern="${MARKER_PATTERN}"/>
+                    <PatternMatch key="properties" pattern="${MARKER_PATTERN}"/>
+                    <PatternMatch key="processor" pattern="${MARKER_PATTERN}"/>
+                    <PatternMatch key="tracer" pattern="${sys:TRACER_MARKER_PATTERN}"/>
+                </MarkerPatternSelector>
+            </PatternLayout>
+            <Filters>
+                <!-- 全量输出 DEBUG 及以上级别的日志 -->
+                <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+                <SizeBaseDTriggeringPolicy size="${LOG_FILE_MAX_SIZE}"/>
+            </Policies>
+        </RollingRandomAccessFile>
+
+        <!-- error 级别日志输出 -->
+        <RollingRandomAccessFile name="ERROR_FILE"
+                                 fileName="${LOG_BASE_FOLDER}/error.log"
+                                 filePattern="${LOG_BASE_FOLDER}/%d{yyyy-MM-dd}/error-${sys:ROLLING_FILE_NAME_PATTERN}"
+                                 immediateFlush="false">
+            <PatternLayout charset="${LOG_CHARSET}">
+                <MarkerPatternSelector defaultPattern="${sys:FILE_LOG_PATTERN}">
+                    <PatternMatch key="banner" pattern="${MARKER_PATTERN}"/>
+                    <PatternMatch key="properties" pattern="${MARKER_PATTERN}"/>
+                    <PatternMatch key="processor" pattern="${MARKER_PATTERN}"/>
+                    <PatternMatch key="tracer" pattern="${sys:TRACER_MARKER_PATTERN}"/>
+                </MarkerPatternSelector>
+            </PatternLayout>
+            <Filters>
+                <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+                <SizeBaseDTriggeringPolicy size="${LOG_FILE_MAX_SIZE}"/>
+            </Policies>
+            <DefaultRolloverStrategy max="${LOG_FILE_TOTAL_SIZE_CAP}">
+                <Delete basePath="${LOG_BASE_FOLDER}" maxDepth="2">
+                    <IfFileName glob="*/error-*.log.gz"/>
+                    <IfLastModified age="${LOG_FILE_MAX_HISTORY}d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingRandomAccessFile>
+
+        <!-- 根据 threadlocal 中是否存在特定的值来路由日志存储到哪个文件 https://logging.apache.org/log4j/log4j-2.2/faq.html -->
+        <Routing name="ROUTING_APPENDER">
+            <Routes pattern="$${ctx:ROUTING_APPENDER_KEY}">
+                <!-- 单独存储 agent service 的响应日志 -->
+                <Route key="AGENT_SERVICE">
+                    <RollingFile name="AGENT_FILE"
+                                 fileName="${LOG_BASE_FOLDER}/agent.service.log"
+                                 filePattern="${LOG_BASE_FOLDER}/%d{yyyy-MM-dd}/agent.service.log-${sys:ROLLING_FILE_NAME_PATTERN}">
+                        <PatternLayout charset="${LOG_CHARSET}">
+                            <MarkerPatternSelector defaultPattern="${sys:FILE_LOG_PATTERN}">
+                                <PatternMatch key="banner" pattern="${MARKER_PATTERN}"/>
+                                <PatternMatch key="properties" pattern="${MARKER_PATTERN}"/>
+                                <PatternMatch key="processor" pattern="${MARKER_PATTERN}"/>
+                                <PatternMatch key="tracer" pattern="${sys:TRACER_MARKER_PATTERN}"/>
+                            </MarkerPatternSelector>
+                        </PatternLayout>
+                        <Policies>
+                            <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                            <SizeBasedTriggeringPolicy size="10 MB"/>
+                        </Policies>
+
+                        <Filters>
+                            <!-- 只保留 TRACE 级别日志, DEBUG 及以上日志全拒绝 -->
+                            <ThresholdFilter level="DEBUG" onMatch="DENY" onMismatch="NEUTRAL"/>
+                            <ThresholdFilter level="TRACE" onMatch="ACCEPT" onMismatch="DENY"/>
+                        </Filters>
+                    </RollingFile>
+                </Route>
+                <!-- 单独存储网关的路由日志 -->
+                <Route key="GATEWAY">
+                    <RollingFile name="GATEWAY_FILE"
+                                 fileName="${LOG_BASE_FOLDER}/gateway.log"
+                                 filePattern="${LOG_BASE_FOLDER}/%d{yyyy-MM-dd}/gateway.log-${sys:ROLLING_FILE_NAME_PATTERN}">
+                        <PatternLayout charset="${LOG_CHARSET}">
+                            <MarkerPatternSelector defaultPattern="${sys:FILE_LOG_PATTERN}">
+                                <PatternMatch key="banner" pattern="${MARKER_PATTERN}"/>
+                                <PatternMatch key="properties" pattern="${MARKER_PATTERN}"/>
+                                <PatternMatch key="processor" pattern="${MARKER_PATTERN}"/>
+                                <PatternMatch key="tracer" pattern="${sys:TRACER_MARKER_PATTERN}"/>
+                            </MarkerPatternSelector>
+                        </PatternLayout>
+                        <Policies>
+                            <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                            <SizeBasedTriggeringPolicy size="10 MB"/>
+                        </Policies>
+
+                        <Filters>
+                            <!-- 只保留 TRACE 级别日志, DEBUG 及以上日志全拒绝 -->
+                            <ThresholdFilter level="DEBUG" onMatch="DENY" onMismatch="NEUTRAL"/>
+                            <ThresholdFilter level="TRACE" onMatch="ACCEPT" onMismatch="DENY"/>
+                        </Filters>
+                    </RollingFile>
+                </Route>
+                <!-- 单独存储 REST 的请求响应日志 -->
+                <Route key="REST">
+                    <RollingFile name="REST_FILE"
+                                 fileName="${LOG_BASE_FOLDER}/rest.log"
+                                 filePattern="${LOG_BASE_FOLDER}/%d{yyyy-MM-dd}/rest.log-${sys:ROLLING_FILE_NAME_PATTERN}">
+                        <PatternLayout charset="${LOG_CHARSET}">
+                            <MarkerPatternSelector defaultPattern="${sys:FILE_LOG_PATTERN}">
+                                <PatternMatch key="banner" pattern="${MARKER_PATTERN}"/>
+                                <PatternMatch key="properties" pattern="${MARKER_PATTERN}"/>
+                                <PatternMatch key="processor" pattern="${MARKER_PATTERN}"/>
+                                <PatternMatch key="tracer" pattern="${sys:TRACER_MARKER_PATTERN}"/>
+                            </MarkerPatternSelector>
+                        </PatternLayout>
+                        <Policies>
+                            <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                            <SizeBasedTriggeringPolicy size="10 MB"/>
+                        </Policies>
+
+                        <Filters>
+                            <!-- 只保留 TRACE 级别日志, DEBUG 及以上日志全拒绝 -->
+                            <ThresholdFilter level="DEBUG" onMatch="DENY" onMismatch="NEUTRAL"/>
+                            <ThresholdFilter level="TRACE" onMatch="ACCEPT" onMismatch="DENY"/>
+                        </Filters>
+                    </RollingFile>
+                </Route>
+            </Routes>
+        </Routing>
+
+    </Appenders>
+
+    <Loggers>
+        <!-- ohter -->
+        <Logger name="com.netflix.http4.ConnectionPoolCleaner" level="WARN"/>
+        <Logger name="com.ulisesbocchio.jasyptspringboot" level="INFO"/>
+        <Logger name="springfox.documentation" level="WARN"/>
+        <Logger name="io.swagger.models.parameters.AbstractSerializableParameter" level="ERROR"/>
+        <Logger name="org.thymeleaf" level="WARN"/>
+        <Logger name="com.ulisesbocchio.jasyptspringboot.EncryptablePropertySourceConverter" level="WARN"/>
+        <!-- mybatis loggers -->
+        <Logger name="com.baomidou.mybatisplus.core.MybatisConfiguration" level="INFO"/>
+        <!-- 注册到 Spring boot admin -->
+        <Logger name="de.codecentric.boot.admin.client.registration.ApplicationRegistrator" level="ERROR"/>
+        <!-- sql loggers -->
+        <Logger name="java.sql.Connection" level="INFO"/>
+        <Logger name="java.sql.Statement" level="INFO"/>
+        <Logger name="java.sql.PreparedStatement" level="INFO"/>
+        <Logger name="java.sql.ResultSet" level="INFO"/>
+        <!-- General Apache libraries -->
+        <Logger name="org.apache" level="WARN"/>
+        <Logger name="reactor.util" level="INFO"/>
+        <!-- dubbo & nacos-->
+        <Logger name="com.zaxxer" level="INFO"/>
+        <Logger name="com.alibaba.dubbo.remoting.transport.DecodeHandler" level="WARN"/>
+        <Logger name="com.alibaba.dubbo.monitor.dubbo.DubboMonitor" level="OFF"/>
+        <Logger name="com.alibaba.dubbo.remoting.exchange.support.header.HeartbeatHandler" level="WARN"/>
+        <Logger name="com.alibaba.dubbo.remoting.exchange.support.header.HeartBeatTask" level="WARN"/>
+        <Logger name="com.alibaba.dubbo.registry.zookeeper.ZookeeperRegistry" level="WARN"/>
+        <Logger name="com.alibaba.dubbo.config.AbstractConfig" level="ERROR"/>
+        <Logger name="com.alibaba.nacos.client" level="WARN"/>
+        <Logger name="druid.sql" level="WARN"/>
+        <Logger name="io.netty" level="INFO"/>
+        <Logger name="io.undertow.request.security" level="WARN"/>
+        <Logger name="org.xnio.nio" level="WARN"/>
+        <Logger name="org.mongodb.driver" level="INFO"/>
+        <Logger name="org.hibernate.validator.internal" level="WARN"/>
+        <Logger name="org.reflections.Reflections" level="ERROR"/>
+        <Logger name="com.alibaba.cloud.dubbo.registry" level="ERROR"/>
+        <Logger name="org.apache.dubbo.config" level="ERROR"/>
+        <Logger name="com.alibaba.cloud.dubbo.metadata.repository" level="ERROR"/>
+        <Logger name="org.apache.dubbo.common.logger.log4j2" level="ERROR"/>
+        <Logger name="org.apache.dubbo.registry.integration" level="ERROR"/>
+        <!-- redis -->
+        <Logger name="io.lettuce" level="INFO"/>
+        <!-- spring -->
+        <Logger name="org.springframework" level="WARN"/>
+        <Logger name="org.springframework.core.log.CompositeLog" level="WARN"/>
+        <Logger name="org.springframework.context.support" level="WARN"/>
+        <Logger name="org.springframework.context.annotation" level="WARN"/>
+        <Logger name="org.springframework.beans.factory.support.DefaultListableBeanFactory" level="ERROR"/>
+        <Logger name="org.springframework.data.mongodb.core.index.MongoPersistentEntityIndexCreator" level="ERROR"/>
+        <Logger name="org.springframework.data.mongodb.core.index.MongoPersistentEntityIndexResolver" level="ERROR"/>
+        <Logger name="org.springframework.data.convert.CustomConversions" level="ERROR"/>
+        <Logger name="com.mongodb.diagnostics" level="WARN"/>
+        <!-- 开启 rest mapper 日志-->
+        <Logger name="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" level="TRACE"/>
+        <!-- spring boot -->
+        <Logger name="org.springframework.boot.actuate.endpoint" level="WARN"/>
+        <Logger name="org.springframework.boot.actuate.endpoint.EndpointId" level="ERROR"/>
+        <Logger name="org.springframework.statemachine.support.LifecycleObjectSupport" level="ERROR"/>
+        <!-- spring cloud -->
+        <Logger name="org.springframework.cloud.gateway.filter.LoadBalancerClientFilter" level="WARN"/>
+        <Logger name="org.springframework.cloud.gateway.filter.ReactiveLoadBalancerClientFilter" level="WARN"/>
+        <!-- springfox -->
+        <Logger name="springfox.documentation.spring.web.readers.parameter.ParameterDataTypeReader" level="ERROR"/>
+        <!-- Nacos -->
+        <Logger name="com.alibaba.cloud.nacos.client.NacosPropertySourceBuilder" level="DEBUG"/>
+        <Logger name="com.alibaba.nacos.common.remote.client" level="WARN"/>
+        <!-- 每次更新元数据时输出 info 日志 -->
+        <Logger name="com.alibaba.cloud.dubbo.autoconfigure.DubboServiceDiscoveryAutoConfiguration" level="WARN"/>
+        <!-- Lettuce -->
+        <Logger name="io.lettuce.core.protocol" level="WARN"/>
+        <Logger name="org.springframework.integration.redis.util" level="ERROR"/>
+        <!-- Spark -->
+        <Logger name="index.info.spark.starter.mongo.CustomMongoPersistentEntityIndexCreator" level="ERROR"/>
+        <Logger name="index.info.spark.starter.mongo.CustomMongoPersistentEntityIndexResolver" level="ERROR"/>
+        <!-- seata -->
+        <Logger name="io.seata.rm.AbstractRMHandler" level="ERROR"/>
+
+        <!-- 对包进行更详细的配置 -->
+        <!-- additivity表示是否追加,防止重复,因为root已经接收过一次了 -->
+        <Logger name="info.spark" level="INFO" additivity="false">
+            <AppenderRef ref="ROUTING_APPENDER"/>
+            <AppenderRef ref="ALL_FILE"/>
+            <AppenderRef ref="DEBUG_FILE"/>
+            <AppenderRef ref="TRACE_FILE"/>
+            <AppenderRef ref="ERROR_FILE"/>
+        </Logger>
+        <Root level="WARN">
+            <AppenderRef ref="ROUTING_APPENDER"/>
+            <AppenderRef ref="ALL_FILE"/>
+            <AppenderRef ref="DEBUG_FILE"/>
+            <AppenderRef ref="TRACE_FILE"/>
+            <AppenderRef ref="ERROR_FILE"/>
+        </Root>
+    </Loggers>
+</Configuration>

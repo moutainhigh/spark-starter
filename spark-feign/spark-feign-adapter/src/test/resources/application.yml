@@ -1,0 +1,6 @@
+spark:
+  feign:
+    url:
+      demo-service: http://gateway/
+  ribbon:
+    list-of-servers: 127.0.0.1:8080

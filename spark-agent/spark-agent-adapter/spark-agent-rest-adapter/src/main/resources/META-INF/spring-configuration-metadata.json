@@ -1,0 +1,64 @@
+{
+    "groups": [
+        {
+            "name": "spark.agent.rest",
+            "type": "info.spark.agent.adapter.config.AgentRestProperties",
+            "sourceType": "info.spark.agent.adapter.config.AgentRestProperties"
+        },
+        {
+          "name": "spark.gateway",
+          "type": "info.spark.agent.adapter.config.AgentRestProperties",
+          "sourceType": "info.spark.agent.adapter.config.AgentRestProperties"
+        }
+    ],
+    "properties": [
+      {
+        "name": "spark.gateway.enable-router",
+        "type": "java.lang.Boolean",
+        "description": "是否使用网关路由请求: 此项配置主要用于开发时使用, 默认为 false, 适用于本地开发, 将忽略 serviceName, 设置为 true 时将会把 serviceName 用于网关路由 false: 配置 spark.gateway.list-of-servers=127.0.0.1:18080, 处理后的 url = http:\/\/127.0.0.1:18080\/agent true: 配置 spark.gateway.list-of-servers=127.0.0.1:18080, 处理后的 url = http:\/\/127.0.0.1:18080\/${serviceName}\/agent",
+        "sourceType": "info.spark.agent.adapter.config.AgentRestProperties",
+        "defaultValue": false
+      },
+      {
+        "name": "spark.gateway.servers",
+        "type": "java.lang.String",
+        "description": "服务负载地址",
+        "sourceType": "info.spark.agent.adapter.config.AgentRestProperties",
+        "defaultValue": "127.0.0.1:18080"
+      },
+      {
+        "name": "spark.gateway.connect-timeout",
+        "type": "java.lang.Long",
+        "description": "Ribbon 连接超时时间 (毫秒) 默认 5 秒",
+        "sourceType": "info.spark.agent.adapter.config.AgentRestProperties",
+        "defaultValue": 5000
+      },
+      {
+        "name": "spark.gateway.read-timeout",
+        "type": "java.lang.Long",
+        "description": "http 请求超时时间 (毫秒) 默认 20 秒",
+        "sourceType": "info.spark.agent.adapter.config.AgentRestProperties",
+        "defaultValue": 20000
+      },
+      {
+        "name": "spark.gateway.request-max-line-length",
+        "type": "java.lang.Long",
+        "description": "get 请求 request 最大长度限制",
+        "sourceType": "info.spark.agent.adapter.config.AgentRestProperties",
+        "defaultValue": 1024
+      },
+      {
+        "name": "spark.gateway.enable-endpoint",
+        "type": "java.lang.Boolean",
+        "description": "是否使用服务直连, 本地开发时只要配置了 Client.endpoint 属性, 将自动设置为 true, 否则为 false",
+        "sourceType": "info.spark.agent.adapter.config.AgentRestProperties",
+        "defaultValue": true
+      },
+      {
+        "name": "spark.gateway.endpoint",
+        "type": "java.util.Map<java.lang.String,java.lang.String>",
+        "description": "key: serviceName, value: 合法 url(ip:port 或域名). 只有本地开发环境且当 enable-endpoint 为 true 时才才生效. 此优先级大于 Client.endpoint 属性"
+      }
+    ],
+    "hints": []
+}

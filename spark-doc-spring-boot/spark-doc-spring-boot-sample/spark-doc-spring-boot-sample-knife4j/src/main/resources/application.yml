@@ -1,0 +1,9 @@
+spark:
+  doc:
+    swagger:
+      title: swagger-plus test
+      description: 描述信息
+      version: 2022.1.1-SNAPSHOT
+      license: xxxx
+      license-url: xxxxx
+      base-package: sample

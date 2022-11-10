@@ -1,0 +1,61 @@
+{
+    "groups": [
+        {
+            "name": "spark.feign.ribbon",
+            "type": "info.spark.feign.adapter.registrar.FeignTargetBuilder",
+            "sourceType": "info.spark.feign.adapter.registrar.FeignTargetBuilder"
+        }
+    ],
+    "properties": [
+        {
+            "name": "spark.feign.ribbon.list-of-servers",
+            "type": "java.lang.String",
+            "description": "服务负载地址",
+            "sourceType": "info.spark.feign.adapter.registrar.FeignTargetBuilder",
+            "defaultValue": "127.0.0.1:18080"
+        },
+        {
+            "name": "spark.feign.ribbon.max-auto-retries",
+            "type": "java.lang.Integer",
+            "description": "同一实例最大重试次数, 不包括首次调用",
+            "sourceType": "info.spark.feign.adapter.registrar.FeignTargetBuilder",
+            "defaultValue": 0
+        },
+        {
+            "name": "spark.feign.ribbon.max-auto-retries-next-server",
+            "type": "java.lang.Integer",
+            "description": "重试其他实例的最大重试次数, 不包括首次所选的 server",
+            "sourceType": "info.spark.feign.adapter.registrar.FeignTargetBuilder",
+            "defaultValue": 1
+        },
+        {
+            "name": "spark.feign.ribbon.ok-to-retry-on-all-operations",
+            "type": "java.lang.Boolean",
+            "description": "是否所有操作都进行重试",
+            "sourceType": "info.spark.feign.adapter.registrar.FeignTargetBuilder",
+            "defaultValue": false
+        },
+        {
+            "name": "spark.feign.ribbon.server-list-refresh-interval",
+            "type": "java.lang.Integer",
+            "description": "服务刷新时间",
+            "sourceType": "info.spark.feign.adapter.registrar.FeignTargetBuilder",
+            "defaultValue": 2000
+        },
+        {
+            "name": "spark.feign.ribbon.connect-timeout",
+            "type": "java.lang.Integer",
+            "description": "Ribbon 连接超时时间",
+            "sourceType": "info.spark.feign.adapter.registrar.FeignTargetBuilder",
+            "defaultValue": 5000
+        },
+        {
+            "name": "spark.feign.ribbon.read-timeout",
+            "type": "java.lang.Integer",
+            "description": "http 请求超时时间",
+            "sourceType": "info.spark.agent.adapter.config.RibbonClientConfiguration",
+            "defaultValue": 10000
+        }
+    ],
+    "hints": []
+}

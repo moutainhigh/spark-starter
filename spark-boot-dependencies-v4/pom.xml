@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>info.spark</groupId>
+        <artifactId>spark-company-dependencies-parent</artifactId>
+        <version>2022.1.1-SNAPSHOT</version>
+        <relativePath/>
+    </parent>
+
+    <artifactId>spark-boot-dependencies-v4</artifactId>
+    <version>${revision}</version>
+    <packaging>pom</packaging>
+    <name>Spark Boot Dependencies(v4)</name>
+    <description>Spark Boot 项目依赖库(v4)</description>
+    <url>https://github.com/dong4j/spark-boot-dependencies-v4.git</url>
+
+    <organization>
+        <url>https://www.dong4j.info</url>
+    </organization>
+
+    <developers>
+        <developer>
+            <id>dong4j</id>
+            <name>dong4j</name>
+            <email>dong4j@gmail.com</email>
+            <organizationUrl>https://www.dong4j.info</organizationUrl>
+            <roles>
+                <role>designer</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <scm>
+        <url>https://github.com/dong4j/spark-boot-dependencies-v4</url>
+        <connection>scm:git:https://github.com/dong4j/spark-boot-dependencies-v4.git</connection>
+        <developerConnection>scm:git:https://github.com/dong4j/spark-boot-dependencies-v4.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <properties>
+        <revision>2022.1.1-SNAPSHOT</revision>
+
+        <jackson.version>2.8.0</jackson.version>
+        <hutool.version>5.7.16</hutool.version>
+
+        <spark-agent.version>2022.1.1-SNAPSHOT</spark-agent.version>
+        <spark-feign.version>2022.1.1-SNAPSHOT</spark-feign.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!--region v4 调用 v5 使用的依赖 -->
+            <dependency>
+                <groupId>info.spark</groupId>
+                <artifactId>spark-feign-adapter</artifactId>
+                <version>${spark-feign.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>info.spark</groupId>
+                <artifactId>spark-feign-spring-boot-starter</artifactId>
+                <version>${spark-feign.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>info.spark</groupId>
+                <artifactId>spark-agent-basic</artifactId>
+                <version>${spark-agent.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>info.spark</groupId>
+                <artifactId>spark-agent-feign-adapter</artifactId>
+                <version>${spark-agent.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>info.spark</groupId>
+                <artifactId>spark-agent-rest-adapter</artifactId>
+                <version>${spark-agent.version}</version>
+            </dependency>
+            <!--endregion-->
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>

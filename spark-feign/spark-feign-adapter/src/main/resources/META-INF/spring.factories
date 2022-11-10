@@ -1,0 +1,6 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  info.spark.feign.adapter.decode.ExceptionErrorDecoder,\
+  info.spark.feign.adapter.config.FeignClientAdapterConfiguration,\
+  info.spark.feign.adapter.exception.FeignGlobalExceptionHandler
+org.springframework.context.ApplicationListener=\
+  org.springframework.boot.context.ApplicationPidFileWriter

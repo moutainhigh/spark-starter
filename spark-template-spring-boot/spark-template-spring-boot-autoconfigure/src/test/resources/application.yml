@@ -1,0 +1,8 @@
+spark:
+  template:
+    hump-key: aaa
+    key: bbb
+    keys:
+      - aaa
+      - bbb
+    times: 5s

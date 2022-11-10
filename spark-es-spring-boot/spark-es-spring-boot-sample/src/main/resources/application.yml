@@ -1,0 +1,6 @@
+spark:
+  es:
+    host: elasticsearch.server
+    port: 9200
+    scheme: http
+

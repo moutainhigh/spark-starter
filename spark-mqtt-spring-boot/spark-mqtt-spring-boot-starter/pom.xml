@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>info.spark</groupId>
+        <artifactId>spark-mqtt-spring-boot</artifactId>
+        <version>${revision}</version>
+    </parent>
+    <groupId>info.spark</groupId>
+    <artifactId>spark-mqtt-spring-boot-starter</artifactId>
+    <version>${revision}</version>
+
+    <name>Spark-mqtt-spring-boot-starter</name>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>info.spark</groupId>
+            <artifactId>spark-mqtt-spring-boot-autoconfigure</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>info.spark</groupId>
+            <artifactId>spark-mqtt-spring-boot-core</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>log4j-api</artifactId>
+                    <groupId>org.apache.logging.log4j</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- 添加需要的依赖 -->
+        <dependency>
+            <groupId>info.spark</groupId>
+            <artifactId>spark-launcher-spring-boot-starter</artifactId>
+            <scope>test</scope>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>info.spark</groupId>
+            <artifactId>spark-logsystem-log4j2-spring-boot-starter</artifactId>
+            <scope>test</scope>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+</project>

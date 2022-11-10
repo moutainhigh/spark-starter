@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>spark-cache-spring-boot</artifactId>
+        <groupId>info.spark</groupId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>spark-cache-spring-boot-starter</artifactId>
+    <name>Spark Cache Spring Boot Starter</name>
+
+    <dependencies>
+        <!-- 自动装配依赖 -->
+        <dependency>
+            <groupId>info.spark</groupId>
+            <artifactId>spark-cache-spring-boot-autoconfigure</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>info.spark</groupId>
+            <artifactId>spark-cache-spring-boot-core</artifactId>
+        </dependency>
+
+        <!-- 添加需要的依赖 -->
+        <dependency>
+            <groupId>info.spark</groupId>
+            <artifactId>spark-launcher-spring-boot-starter</artifactId>
+            <scope>test</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>info.spark</groupId>
+            <artifactId>spark-logsystem-log4j2-spring-boot-starter</artifactId>
+            <scope>test</scope>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+</project>

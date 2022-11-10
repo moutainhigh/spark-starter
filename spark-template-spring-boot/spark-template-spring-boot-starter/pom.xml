@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>info.spark</groupId>
+        <artifactId>spark-template-spring-boot</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>spark-template-spring-boot-starter</artifactId>
+    <name>Spark Template Spring Boot Starter</name>
+
+    <dependencies>
+        <!-- 自动装配依赖 -->
+        <dependency>
+            <groupId>info.spark</groupId>
+            <artifactId>spark-template-spring-boot-autoconfigure</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>info.spark</groupId>
+            <artifactId>spark-template-spring-boot-core</artifactId>
+        </dependency>
+
+        <!-- 添加需要的依赖 -->
+
+    </dependencies>
+</project>

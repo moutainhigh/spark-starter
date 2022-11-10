@@ -1,0 +1,16 @@
+jetcache:
+  # 统计间隔, 0 表示不统计
+  statIntervalMinutes: 30 # (默认)
+  # jetcache-anno 把 cacheName 作为远程缓存 key 前缀
+  areaInCacheName: false # (默认)
+  # @Cached 和 @CreateCache 自动生成 name 的时候, 为了不让 name 太长, hiddenPackages 指定的包名前缀被截掉
+  hidePackages: info.spark # (默认)
+  local:
+    default:
+      # 缓存类型. tair、redis 为当前支持的远程缓存; linkedhashmap、caffeine 为当前支持的本地缓存类型
+      type: caffeine
+  remote:
+    default:
+      type: redis.lettuce
+      # 连接单机
+      uri: redis://123456@192.168.2.72:6379

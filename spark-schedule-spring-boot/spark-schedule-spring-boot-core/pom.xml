@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>info.spark</groupId>
+        <artifactId>spark-schedule-spring-boot</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>spark-schedule-spring-boot-core</artifactId>
+    <name>Spark Schedule Spring Boot Core</name>
+
+    <properties>
+        <xxl-job.version>2.2.1-SNAPSHOT</xxl-job.version>
+    </properties>
+
+    <dependencies>
+        <!--region 强依赖-->
+        <dependency>
+            <groupId>info.spark</groupId>
+            <artifactId>spark-element-common</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.xuxueli</groupId>
+            <artifactId>xxl-job-core</artifactId>
+            <version>${xxl-job.version}</version>
+        </dependency>
+
+        <!-- 添加需要的强依赖 -->
+        <!--endregion-->
+
+        <!--region 本模块内使用, 禁止依赖传递, 用于 @Slf4j 注解 -->
+        <dependency>
+            <groupId>info.spark</groupId>
+            <artifactId>spark-logsystem-simple</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <!--endregion-->
+
+        <!-- 添加需要的弱依赖 -->
+
+    </dependencies>
+</project>

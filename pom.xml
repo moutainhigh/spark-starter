@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>coffee</artifactId>
+    <groupId>info.spark</groupId>
+    <version>stable</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>spark-boot-dependencies-v4</module>
+        <module>spark-boot-dependencies</module>
+
+        <module>spark-logsystem-spring-boot</module>
+        <module>spark-launcher-spring-boot</module>
+
+        <module>spark-template-spring-boot</module>
+
+        <module>spark-endpoint-spring-boot</module>
+        <module>spark-doc-spring-boot</module>
+        <module>spark-email-spring-boot</module>
+        <module>spark-qrcode-spring-boot</module>
+        <module>spark-captcha-spring-boot</module>
+        <module>spark-sms-spring-boot</module>
+        <module>spark-schedule-spring-boot</module>
+        <module>spark-security-spring-boot</module>
+
+        <module>spark-cache-spring-boot</module>
+        <module>spark-es-spring-boot</module>
+        <module>spark-pay-spring-boot</module>
+        <module>spark-retry-spring-boot</module>
+        <module>spark-metrics-spring-boot</module>
+        <module>spark-idempotent-spring-boot</module>
+
+        <module>spark-zookeeper-spring-boot</module>
+        <module>spark-eventbus-spring-boot</module>
+        <module>spark-mq-spring-boot</module>
+        <module>spark-mongo-spring-boot</module>
+        <module>spark-mybatis-spring-boot</module>
+        <module>spark-transaction-spring-boot</module>
+        <module>spark-openness-spring-boot</module>
+        <module>spark-rest-spring-boot</module>
+        <module>spark-dubbo-spring-boot</module>
+        <module>spark-cloud-spring-boot</module>
+        <module>spark-id-spring-boot</module>
+        <module>spark-ip2region-spring-boot</module>
+        <module>spark-enhance-starter</module>
+        <module>spark-dingtalk-spring-boot</module>
+        <module>spark-feign</module>
+        <module>spark-agent</module>
+        <module>spark-mqtt-spring-boot</module>
+        <module>spark-websocket-spring-boot</module>
+    </modules>
+
+    <properties>
+        <maven.install.skip>true</maven.install.skip>
+        <maven.deploy.skip>true</maven.deploy.skip>
+    </properties>
+</project>

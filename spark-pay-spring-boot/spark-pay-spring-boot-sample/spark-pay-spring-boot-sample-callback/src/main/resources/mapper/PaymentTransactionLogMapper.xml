@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sample.pay.dao.PaymentTransactionLogDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="PaymentTransactionLogResultMap" type="sample.pay.entity.po.PaymentTransactionLog">
+        <result column="id" property="id"/>
+        <result column="deleted" property="deleted"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="synch_log" property="synchLog"/>
+        <result column="async_log" property="asyncLog"/>
+        <result column="pay_id" property="payId"/>
+        <result column="transaction_no" property="transactionNo"/>
+        <result column="revision" property="revision"/>
+    </resultMap>
+
+    <select id="getLogByPanNo" resultMap="PaymentTransactionLogResultMap">
+        select ptl.*
+        from payment_transaction_log ptl
+        left join payment_transaction pt on pt.id = ptl.pay_id
+        where pt.pay_no = #{payNo}
+    </select>
+
+</mapper>

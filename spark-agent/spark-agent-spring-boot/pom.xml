@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>info.spark</groupId>
+        <artifactId>spark-agent</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>spark-agent-spring-boot</artifactId>
+    <packaging>pom</packaging>
+    <name>Spark Agent Starter</name>
+
+    <modules>
+        <module>spark-agent-spring-boot-autoconfigure</module>
+        <module>spark-agent-spring-boot-core</module>
+        <module>spark-agent-spring-boot-starter</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>info.spark</groupId>
+                <artifactId>spark-agent-spring-boot-autoconfigure</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>info.spark</groupId>
+                <artifactId>spark-agent-endpoint</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+</project>

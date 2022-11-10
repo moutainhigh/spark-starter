@@ -1,0 +1,2 @@
+crossJvmParameterPassingFilter=filter.info.spark.starter.dubbo.CrossJvmParameterPassingFilter
+dubboExceptionFilter=filter.info.spark.starter.dubbo.ConsumerExceptionFilter

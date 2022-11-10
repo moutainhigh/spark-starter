@@ -1,0 +1,11 @@
+<Appenders>
+    <Console name="CONSOLE" target="SYSTEM_OUT">
+        <PatternLayout charset="${LOG_CHARSET}">
+            <MarkerPatternSelector defaultPattern="${CONSOLE_LOG_PATTERN}">
+                <PatternMatch key="banner" pattern="${MARKER_PATTERN}"/>
+                <PatternMatch key="properties" pattern="${MARKER_PATTERN}"/>
+                <PatternMatch key="processor" pattern="${MARKER_PATTERN}"/>
+            </MarkerPatternSelector>
+        </PatternLayout>
+    </Console>
+</Appenders>

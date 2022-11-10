@@ -1,0 +1,55 @@
+{
+    "groups": [
+        {
+            "name": "range.random",
+            "type": "info.spark.starter.launcher.env.RangeRandomValuePropertySource",
+            "sourceType": "info.spark.starter.launcher.env.RangeRandomValuePropertySource"
+        }
+    ],
+    "properties": [
+        {
+            "name": "range.random.int",
+            "type": "java.lang.String",
+            "description": "产生随机数, 默认为 8080 到 18080",
+            "sourceType": "info.spark.starter.launcher.env.RangeRandomValuePropertySource",
+            "defaultValue": "8080 ~ 18080"
+        },
+        {
+            "name": "range.random.key",
+            "type": "java.lang.String",
+            "description": "产生随机字符串, 默认长度 64 位",
+            "sourceType": "info.spark.starter.launcher.env.RangeRandomValuePropertySource"
+        }
+    ],
+    "hints": [
+        {
+            "name": "server.port",
+            "values": [
+                {
+                    "value": "range.random.int",
+                    "description": "将产生 8080 ~ 18080 之间的随机端口"
+                },
+                {
+                    "value": "range.random.int(8080, 18080)",
+                    "description": "默认值"
+                }
+            ]
+        },
+        {
+            "name": "system.state",
+            "values": [
+                {
+                    "value": "on"
+                },
+                {
+                    "value": "off"
+                }
+            ],
+            "providers": [
+                {
+                    "name": "any"
+                }
+            ]
+        }
+    ]
+}

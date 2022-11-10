@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>info.spark</groupId>
+        <artifactId>spark-starter-parent</artifactId>
+        <version>2022.1.1-SNAPSHOT</version>
+        <relativePath/>
+    </parent>
+
+    <artifactId>spark-pay-spring-boot</artifactId>
+    <version>${revision}</version>
+    <packaging>pom</packaging>
+    <name>Spark Pay</name>
+    <description>Spark Pay</description>
+    <url>https://github.com/dong4j/spark-pay-spring-boot.git</url>
+
+    <organization>
+        <url>https://www.dong4j.info</url>
+    </organization>
+
+    <developers>
+        <developer>
+            <id>dong4j</id>
+            <name>dong4j</name>
+            <email>dong4j@gmail.com</email>
+            <organizationUrl>https://www.dong4j.info</organizationUrl>
+            <roles>
+                <role>designer</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <scm>
+        <url>https://github.com/dong4j/spark-pay-spring-boot</url>
+        <connection>scm:git:https://github.com/dong4j/spark-pay-spring-boot.git</connection>
+        <developerConnection>scm:git:https://github.com/dong4j/spark-pay-spring-boot.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <modules>
+        <module>spark-pay-spring-boot-core</module>
+        <module>spark-pay-spring-boot-autoconfigure</module>
+        <module>spark-pay-spring-boot-starter</module>
+    </modules>
+
+    <properties>
+        <revision>2022.1.1-SNAPSHOT</revision>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>info.spark</groupId>
+                <artifactId>spark-company-dependencies</artifactId>
+                <version>${spark-company-dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>info.spark</groupId>
+                <artifactId>spark-element-dependencies</artifactId>
+                <version>${spark-element-dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>info.spark</groupId>
+                <artifactId>spark-boot-dependencies</artifactId>
+                <version>${spark-boot-dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>info.spark</groupId>
+                <artifactId>spark-pay-spring-boot-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>info.spark</groupId>
+                <artifactId>spark-pay-spring-boot-autoconfigure</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>info.spark</groupId>
+            <artifactId>spark-element-test</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

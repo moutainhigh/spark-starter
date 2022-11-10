@@ -1,0 +1,8 @@
+spark:
+  feign:
+    url:
+      demo: http://gateway
+      third-center: http://gateway/third-center
+    ribbon:
+      list-of-servers: 127.0.0.1:18080
+    enable-check: false

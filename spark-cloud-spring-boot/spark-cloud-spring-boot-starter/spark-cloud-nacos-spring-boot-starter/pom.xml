@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>info.spark</groupId>
+        <artifactId>spark-cloud-spring-boot-starter</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>spark-cloud-nacos-spring-boot-starter</artifactId>
+    <name>Spark Cloud Nacos Spring Boot Starter</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>info.spark</groupId>
+            <artifactId>spark-cloud-nacos</artifactId>
+        </dependency>
+
+        <!-- 配置加解密依赖 todo-dong4j : (2021-10-9 19:57) [存在提前初始化 bean 的问题, 暂时注释] -->
+        <!--<dependency>-->
+        <!--    <groupId>com.github.ulisesbocchio</groupId>-->
+        <!--    <artifactId>jasypt-spring-boot-starter</artifactId>-->
+        <!--</dependency>-->
+    </dependencies>
+</project>

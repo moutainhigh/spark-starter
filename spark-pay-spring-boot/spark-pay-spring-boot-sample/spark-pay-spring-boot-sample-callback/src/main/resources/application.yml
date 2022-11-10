@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/spark_pay?useUnicode=true&characterEncoding=utf8&useSSL=false&allowMultiQueries=true&serverTimezone=GMT%2b8
+    username: root
+    password: 123456
+
+spark:
+  rest:
+    enable-browser: false
+
+jetcache:
+  remote:
+    default:
+      type: redis.lettuce
+      keyConvertor: fastjson
+      # 序列化器的全局配置. 仅 remote 类型的缓存需要指定, 可选 java , kryo, jackson
+      valueEncoder: java
+      # 序列化器的全局配置. 仅 remote 类型的缓存需要指定, 可选 java , kryo, jackson
+      valueDecoder: java
+      poolConfig:
+        minIdle: 5
+        maxIdle: 20
+        maxTotal: 50
+      # 连接单机
+      uri: redis://123456@127.0.0.1:6379
